@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "cars")
+@Table(name = "payments")
 @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p")
 public class Payment {
 
@@ -14,6 +14,18 @@ public class Payment {
     private Integer id;
 
     private String username;
+
+
+    private Double price;
+
+    private String currency;
+
+    private Integer reservationId; // This field is used if payment is connected to reservation
+
+    private Integer orderId; // this field is used if payment is connected to order
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date transactionTime; // Time of transaction - when
 
     public Integer getId() {
         return id;
@@ -70,18 +82,6 @@ public class Payment {
     public void setTransactionTime(Date transactionTime) {
         this.transactionTime = transactionTime;
     }
-
-    private Double price;
-
-    private String currency;
-
-    private Integer reservationId; // This field is used if payment is connected to reservation
-
-    private Integer orderId; // this field is used if payment is connected to order
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date transactionTime; // Time of transaction - when
-
 
 
 

@@ -1,3 +1,5 @@
+package sharycar.payments.api;
+
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import sharycar.payments.persistence.Payment;
 import sharycar.payments.bussines.PaymentHelper;
-@Path("/catalogue")
+@Path("/payments")
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -23,7 +25,6 @@ public class PaymentResource {
      *  Get all payments
      */
     @GET
-    @Path("/payments")
     public Response getPayments() {
 
         TypedQuery<Payment> query = em.createNamedQuery("Payment.findAll", Payment.class);
@@ -35,7 +36,7 @@ public class PaymentResource {
     }
 
     @POST
-    @Path("/payments")
+    @Path("/add")
     public Response addPayment(Payment payment) {
         try {
             // Try executing transaction
@@ -53,6 +54,46 @@ public class PaymentResource {
         }
 
         return Response.status(Response.Status.CREATED).entity(payment).build();
+    }
+
+    /**
+     * Get payments for user.
+     * @param uname
+     * @return
+     */
+    @GET
+    @Path("/user/{uname}")
+    public Response getUserPayments(@PathParam("uname") Integer uname) {
+
+        try {
+            Query query = em.createQuery("SELECT p FROM Payment p WHERE p.username = :uname");
+            query.setParameter("uname", uname);
+            return Response.ok(query.getResultList()).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    /**
+     * Get payment by id.
+     * @param paymentId
+     * @return
+     */
+    @GET
+    @Path("/{paymentId}")
+    public Response getPaymentById(@PathParam("paymentId") Integer paymentId) {
+
+        try {
+            Query query = em.createQuery("SELECT p FROM Payment p WHERE p.id = :paymentId");
+            query.setParameter("paymentId", paymentId);
+            return Response.ok(query.getResultList()).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
 

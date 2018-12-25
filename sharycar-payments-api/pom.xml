@@ -23,6 +23,7 @@
             <artifactId>sharycar-payments-bussines-logic</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <build>

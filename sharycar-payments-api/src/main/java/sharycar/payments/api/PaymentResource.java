@@ -10,6 +10,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Date;
 import java.util.List;
+
+import org.eclipse.microprofile.metrics.Histogram;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Metric;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import sharycar.payments.persistence.Payment;
 import sharycar.payments.bussines.PaymentHelper;
 @Path("/payments")
@@ -24,6 +29,8 @@ public class PaymentResource {
     /**
      *  Get all payments
      */
+
+    @Metered(name = "requests")
     @GET
     public Response getPayments() {
 
@@ -34,7 +41,7 @@ public class PaymentResource {
         return Response.ok(payments).build();
 
     }
-
+    @Timed(name = "payment_processing_time")
     @POST
     @Path("/add")
     public Response addPayment(Payment payment) {
@@ -61,6 +68,9 @@ public class PaymentResource {
      * @param uname
      * @return
      */
+
+    @Metric(name = "get_user_payments")
+    Histogram histogram;
     @GET
     @Path("/user/{uname}")
     public Response getUserPayments(@PathParam("uname") String uname) {
@@ -81,6 +91,8 @@ public class PaymentResource {
      * @param paymentId
      * @return
      */
+
+    @Metric(name = "requests")
     @GET
     @Path("/{paymentId}")
     public Response getPaymentById(@PathParam("paymentId") Integer paymentId) {

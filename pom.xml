@@ -23,6 +23,7 @@
         <kumuluzee-config.version>1.0.0</kumuluzee-config.version>
         <kumuluzee-discovery.version>1.1.0</kumuluzee-discovery.version>
         <kumuluzee-metrics.version>1.1.1</kumuluzee-metrics.version>
+        <kumuluzee-logs.version>1.1.1</kumuluzee-logs.version>
     </properties>
 
     <dependencyManagement>
@@ -76,6 +77,7 @@
             <artifactId>kumuluzee-metrics-logstash</artifactId>
             <version>${kumuluzee-metrics.version}</version>
         </dependency>
+
 
     </dependencies>
 

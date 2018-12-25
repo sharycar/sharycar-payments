@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response;
 import java.util.Date;
 import java.util.List;
 
+import com.kumuluz.ee.logs.cdi.Log;
+import com.kumuluz.ee.logs.cdi.LogParams;
 import org.eclipse.microprofile.metrics.Histogram;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Metric;
@@ -21,7 +23,9 @@ import sharycar.payments.bussines.PaymentHelper;
 @RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Log(LogParams.METRICS)
 public class PaymentResource {
+
 
     @PersistenceContext
     private EntityManager em;
@@ -30,8 +34,10 @@ public class PaymentResource {
      *  Get all payments
      */
 
+
     @Metered(name = "requests")
     @GET
+    @Log(value = LogParams.METRICS, methodCall = false)
     public Response getPayments() {
 
         TypedQuery<Payment> query = em.createNamedQuery("Payment.findAll", Payment.class);
@@ -44,6 +50,7 @@ public class PaymentResource {
     @Timed(name = "payment_processing_time")
     @POST
     @Path("/add")
+    @Log(value = LogParams.METRICS, methodCall = false)
     public Response addPayment(Payment payment) {
         try {
             // Try executing transaction
@@ -73,6 +80,7 @@ public class PaymentResource {
     Histogram histogram;
     @GET
     @Path("/user/{uname}")
+    @Log(value = LogParams.METRICS, methodCall = false)
     public Response getUserPayments(@PathParam("uname") String uname) {
 
         try {
@@ -95,6 +103,7 @@ public class PaymentResource {
     @Metric(name = "requests")
     @GET
     @Path("/{paymentId}")
+    @Log(value = LogParams.METRICS, methodCall = false)
     public Response getPaymentById(@PathParam("paymentId") Integer paymentId) {
 
         try {

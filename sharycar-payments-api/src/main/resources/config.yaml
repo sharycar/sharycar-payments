@@ -16,3 +16,27 @@ kumuluzee:
     checks:
       data-source-health-check:
         jndi-name: jdbc/SharyCarDB
+  metrics:
+    metrics:
+    logs:
+       config-file: '<?xml version="1.0" encoding="UTF-8"?>
+                  <Configuration name="customers">
+                      <Appenders>
+                          <Console name="console" target="SYSTEM_OUT">
+                              <PatternLayout pattern="%d %p %marker %m %X %ex %n"/>
+                          </Console>
+                      </Appenders>
+                      <Loggers>
+                          <!-- Default logger -->
+                          <Root level="info">
+                              <AppenderRef ref="console"/>
+                          </Root>
+                      </Loggers>
+                  </Configuration>'
+      servlet:
+        enabled: true
+        mapping: /my-servlet-metrics
+      logstash:
+        address: https://api.logit.io/v2
+        port: 5043
+        period-s: 15

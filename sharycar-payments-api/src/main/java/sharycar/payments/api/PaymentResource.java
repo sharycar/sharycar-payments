@@ -63,7 +63,7 @@ public class PaymentResource {
      */
     @GET
     @Path("/user/{uname}")
-    public Response getUserPayments(@PathParam("uname") Integer uname) {
+    public Response getUserPayments(@PathParam("uname") String uname) {
 
         try {
             Query query = em.createQuery("SELECT p FROM Payment p WHERE p.username = :uname");

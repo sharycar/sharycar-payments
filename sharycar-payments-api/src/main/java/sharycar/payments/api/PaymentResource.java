@@ -33,8 +33,6 @@ public class PaymentResource {
     /**
      *  Get all payments
      */
-
-
     @Metered(name = "requests")
     @GET
     @Log(value = LogParams.METRICS, methodCall = false)
@@ -79,13 +77,13 @@ public class PaymentResource {
     @Metric(name = "get_user_payments")
     Histogram histogram;
     @GET
-    @Path("/user/{uname}")
+    @Path("/user/{uid}")
     @Log(value = LogParams.METRICS, methodCall = false)
-    public Response getUserPayments(@PathParam("uname") String uname) {
+    public Response getUserPayments(@PathParam("uid") Integer uid) {
 
         try {
-            Query query = em.createQuery("SELECT p FROM Payment p WHERE p.username = :uname");
-            query.setParameter("uname", uname);
+            Query query = em.createQuery("SELECT p FROM Payment p WHERE p.user_id = :uid");
+            query.setParameter("uid", uid);
             return Response.ok(query.getResultList()).build();
 
         } catch (Exception e) {
@@ -99,7 +97,6 @@ public class PaymentResource {
      * @param paymentId
      * @return
      */
-
     @Metric(name = "requests")
     @GET
     @Path("/{paymentId}")

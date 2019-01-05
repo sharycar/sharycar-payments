@@ -4,39 +4,18 @@ kumuluzee:
     name: dev
   version: 1.0.0
   server:
+    base-url: http://localhost:8083
     http:
-      port: 8080
+      port: 8083
+  config:
+    etcd:
+      hosts: http://192.168.99.100:2379
+  discovery:
+    etcd:
+      hosts: http://192.168.99.100:2379
   datasources:
   - jndi-name: jdbc/SharyCarDB
     connection-url: jdbc:postgresql://sharycardb.czqdzv4vbdko.eu-west-1.rds.amazonaws.com:5432/postgres
     username: postgres
     password: postgres
     max-pool-size: 20
-  health:
-    checks:
-      data-source-health-check:
-        jndi-name: jdbc/SharyCarDB
-  metrics:
-    metrics:
-    logs:
-       config-file: '<?xml version="1.0" encoding="UTF-8"?>
-                  <Configuration name="customers">
-                      <Appenders>
-                          <Console name="console" target="SYSTEM_OUT">
-                              <PatternLayout pattern="%d %p %marker %m %X %ex %n"/>
-                          </Console>
-                      </Appenders>
-                      <Loggers>
-                          <!-- Default logger -->
-                          <Root level="info">
-                              <AppenderRef ref="console"/>
-                          </Root>
-                      </Loggers>
-                  </Configuration>'
-      servlet:
-        enabled: true
-        mapping: /my-servlet-metrics
-      logstash:
-        address: https://api.logit.io/v2
-        port: 5043
-        period-s: 15

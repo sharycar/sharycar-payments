@@ -85,7 +85,7 @@
             <plugin>
                 <groupId>com.kumuluz.ee</groupId>
                 <artifactId>kumuluzee-maven-plugin</artifactId>
-                <version>${kumuluzee.version}</version>
+                <version>2.5.3</version>
                 <executions>
                     <execution>
                         <id>package</id>

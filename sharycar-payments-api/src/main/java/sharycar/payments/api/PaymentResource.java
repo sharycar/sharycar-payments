@@ -24,7 +24,6 @@ import sharycar.payments.bussines.PaymentHelper;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Log(LogParams.METRICS)
-@Log
 public class PaymentResource {
 
 
@@ -48,6 +47,7 @@ public class PaymentResource {
     @Timed(name = "payment_processing_time")
     @POST
     @Path("/add")
+    @Log(value = LogParams.METRICS, methodCall = false)
     public Response addPayment(Payment payment) {
         try {
             // Try executing transaction
@@ -69,12 +69,12 @@ public class PaymentResource {
 
     /**
      * Get payments for user.
-     * @param uname
+     * @param uid
      * @return
      */
 
     @Metric(name = "get_user_payments")
-    Histogram histogram;
+    @Log(value = LogParams.METRICS, methodCall = false)
     @GET
     @Path("/user/{uid}")
     public Response getUserPayments(@PathParam("uid") Integer uid) {
@@ -98,6 +98,7 @@ public class PaymentResource {
     @Metric(name = "requests")
     @GET
     @Path("/{paymentId}")
+    @Log(value = LogParams.METRICS, methodCall = false)
     public Response getPaymentById(@PathParam("paymentId") Integer paymentId) {
 
         try {

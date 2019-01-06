@@ -27,8 +27,23 @@ import sharycar.payments.bussines.PaymentHelper;
 public class PaymentResource {
 
 
+
     @PersistenceContext
     private EntityManager em;
+
+
+
+    /**
+     * testing purpose
+     * @return
+     */
+    @GET
+    @Path("version")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getUrl() {
+        return Response.ok("1.0.0").build();
+    }
+
 
     /**
      *  Get all payments

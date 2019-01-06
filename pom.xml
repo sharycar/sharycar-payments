@@ -29,9 +29,7 @@
         <kumuluzee-metrics.version>1.1.0-SNAPSHOT</kumuluzee-metrics.version>
         <kumuluzee-security.version>1.1.0-SNAPSHOT</kumuluzee-security.version>
 
-        <postgresql.version>42.1.4</postgresql.version>
-        <swagger.version>1.5.16</swagger.version>
-        <httpclient.version>4.5.3</httpclient.version>
+
     </properties>
 
 
@@ -88,27 +86,7 @@
                 <version>${kumuluzee-security.version}</version>
             </dependency>
 
-            <!-- External dependencies -->
-            <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>${postgresql.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-core</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-jersey2-jaxrs</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.kumuluz.ee.metrics</groupId>
                 <artifactId>kumuluzee-metrics-core</artifactId>

@@ -9,10 +9,10 @@ kumuluzee:
       port: 8083
   config:
     etcd:
-      hosts: http://192.168.99.100:2379
+      hosts: http://etcd:2379
   discovery:
     etcd:
-      hosts: http://192.168.99.100:2379
+      hosts: http://etcd:2379
   datasources:
   - jndi-name: jdbc/SharyCarDB
     connection-url: jdbc:postgresql://sharycardb.czqdzv4vbdko.eu-west-1.rds.amazonaws.com:5432/postgres
